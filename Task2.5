@@ -1,0 +1,53 @@
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Timeout;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class Testing {
+
+    @Test
+    public void simpleTest() {
+        int[] array1 = Main.generateTestArray();
+        int[] array2 = Main.generateTestArray();
+        assertArrayEquals(array1, array2);
+    }
+
+    @RepeatedTest(10)
+    public void simpleTestRepeated() {
+        int[] array1 = Main.generateTestArray();
+        int[] array2 = Main.generateTestArray();
+        assertArrayEquals(array1, array2);
+    }
+
+    @Test
+    public void manualPerfTest() {
+        int[] array = Main.generateTestArray();
+        long startTime = System.nanoTime();
+
+        Main.bogoSort(array);
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        System.out.println(duration);
+    }
+
+    @Tag("performance")
+    @RepeatedTest(10)
+    public void autoPerfTest() {
+        int[] array1 = Main.generateTestArray();
+        int[] array2 = Main.generateTestArray();
+        assertArrayEquals(array1, array2);
+    }
+
+    @Timeout(value = 1, unit = TimeUnit.SECONDS)
+    @Test
+    public void finalTest() {
+        int[] array = Main.generateTestArray();
+        Main.bogoSort(array);
+    }
+
+}
